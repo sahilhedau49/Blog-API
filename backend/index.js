@@ -1,37 +1,19 @@
 const express = require("express");
-const mysql = require("mysql");
-const dbConfig = require("./dbConfig.json");
+const cors = require("cors");
+const router = require("./routes/posts");
 
 const app = express();
+const PORT = process.env.PORT || 8000;
 
-const db = mysql.createConnection(dbConfig);
+app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
-  res.json("Hello friends...");
+  res.json("Welcome to blogs API.");
 });
 
-app.get("/blogs", (req, res) => {
-  const q = "SELECT * FROM blogs";
-  db.query(q, (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
+app.use("/posts", router);
 
-app.post("/blog", (req, res) => {
-  const q = "INSERT INTO blogs (`title`, `content`, `coverImg`) VALUES (?)";
-  const values = [
-    "title from backend",
-    "content from backend",
-    "backendimg.png",
-  ];
-
-  db.query(q, [values], (err, data) => {
-    if (err) return res.json(err);
-    return res.json(data);
-  });
-});
-
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log("Connected to backend");
 });
