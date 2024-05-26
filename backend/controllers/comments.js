@@ -16,10 +16,11 @@ const createOneComment = (req, res) => {
 
 const getAllCommentOfPostById = (req, res) => {
   const { post_id } = req.params;
-  const q = "SELECT * FROM comments WHERE post_id = ?";
+  const q =
+    "SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC;";
 
   db.query(q, [post_id], (err, data) => {
-    if (err) res.json(err);
+    if (err) return res.json(err);
     return res.json(data);
   });
 };
@@ -29,7 +30,7 @@ const deleteCommentById = (req, res) => {
   const q = "DELETE FROM comments WHERE id = ?";
 
   db.query(q, [id], (err, data) => {
-    if (err) res.json(err);
+    if (err) return res.json(err);
     return res.json({
       message: "Comment deleted successfully",
       data: data,
