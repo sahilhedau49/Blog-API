@@ -1,7 +1,7 @@
 const db = require("../db");
 
 const getAllPosts = (req, res) => {
-  const q = "SELECT * FROM posts";
+  const q = "SELECT * FROM posts ORDER BY created_at DESC";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);

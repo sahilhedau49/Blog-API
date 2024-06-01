@@ -22,7 +22,7 @@ const Navbar = () => {
         {isAuthenticated && (
           <Link
             className="text-lg md:text-xl font-semibold md:font-medium duration-300 text-zinc-500 md:text-black hover:text-black"
-            to={"/createBlog"}
+            to={"/createPost"}
           >
             Write a Blog
           </Link>

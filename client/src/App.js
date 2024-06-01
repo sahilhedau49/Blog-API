@@ -3,10 +3,14 @@ import Navbar from "./components/Navbar";
 import Blogs from "./components/Blogs";
 import CreateBlog from "./components/CreateBlog";
 import Blog from "./components/Blog";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+      <div>
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Blogs />} />

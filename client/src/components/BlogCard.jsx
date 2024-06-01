@@ -5,17 +5,15 @@ const BlogCard = ({ data }) => {
   return (
     <Link
       to={`/post/${data.id}`}
-      className="flex flex-col justify-between bg-zinc-300 p-8 duration-100 hover:scale-105"
+      className="flex flex-col rounded-lg justify-between bg-zinc-300 p-8 duration-100 hover:scale-105"
     >
       <div>
         <div className="text-xl font-medium mb-4">{data.title}</div>
         <div className="text-base">{data.content.substr(0, 120)} ...</div>
       </div>
       <div className="mt-6 text-right">
-        <p className="text-sm font-semibold">
-          {Date(data.created_at).toLocaleString().split(" GMT")[0]}
-        </p>
-        <p className="text-sm font-semibold"> - {data.author}</p>
+        <p className="text-base font-semibold"> - by {data.author}</p>
+        <p className="text-sm font-semibold">{data.created_at.split("T")[0]}</p>
       </div>
     </Link>
   );
