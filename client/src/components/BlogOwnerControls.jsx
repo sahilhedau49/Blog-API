@@ -10,7 +10,9 @@ const BlogOwnerControls = ({ id }) => {
 
   const handleBlogDelete = async () => {
     try {
-      const res = await axios.delete(`http://localhost:8000/posts/${id}`);
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
+      );
       toast.success(res.data.message);
       navigate("/");
     } catch (error) {

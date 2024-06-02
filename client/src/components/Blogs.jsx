@@ -10,7 +10,9 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/posts");
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts`
+        );
         setBlogs(res.data);
         // console.log(res.data);
       } catch (err) {

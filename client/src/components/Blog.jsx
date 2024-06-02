@@ -16,7 +16,9 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/posts/${id}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
+        );
         setBlog(res.data[0]);
         console.log(res.data[0]);
       } catch (err) {
@@ -27,7 +29,7 @@ const Blog = () => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/posts/${id}/comments`
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/comments`
         );
         setComments(res.data);
         console.log(res.data);
@@ -49,7 +51,7 @@ const Blog = () => {
   const submitComment = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/posts/${id}/comments`,
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/comments`,
         { author: user.name, content: newComment }
       );
       console.log(res);
@@ -62,7 +64,7 @@ const Blog = () => {
   const handleCommentDelete = async (cid) => {
     try {
       const res = await axios.delete(
-        `http://localhost:8000/posts/${id}/comments/${cid}`
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/comments/${cid}`
       );
       console.log(res);
       window.location.reload();

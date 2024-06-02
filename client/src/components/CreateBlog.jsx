@@ -50,11 +50,14 @@ const CreateBlog = () => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8000/posts`, {
-        title: title,
-        content: content,
-        author: user.name,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts`,
+        {
+          title: title,
+          content: content,
+          author: user.name,
+        }
+      );
       // console.log(res);
       if (res.status === 200) {
         toast.success(res.data.message);

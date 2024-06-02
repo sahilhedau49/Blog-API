@@ -16,7 +16,9 @@ const UpdateBlog = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/posts/${id}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
+        );
         const { title, content } = res.data[0];
         setTitle(title);
         setContent(content);
@@ -66,11 +68,14 @@ const UpdateBlog = () => {
       return;
     }
     try {
-      const res = await axios.put(`http://localhost:8000/posts/${id}`, {
-        title: title,
-        content: content,
-        author: user.name,
-      });
+      const res = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`,
+        {
+          title: title,
+          content: content,
+          author: user.name,
+        }
+      );
       console.log(res);
       if (res.status === 200) {
         toast.success(res.data.message);
