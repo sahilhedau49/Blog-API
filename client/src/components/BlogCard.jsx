@@ -5,7 +5,7 @@ const BlogCard = ({ data }) => {
   return (
     <Link
       to={`/post/${data.id}`}
-      className="flex flex-col rounded-lg justify-between bg-zinc-300 p-8 duration-100 hover:scale-105"
+      className="flex flex-col rounded-lg justify-between bg-zinc-300 p-8 duration-300 hover:scale-105"
     >
       <div>
         <div className="text-xl font-medium mb-4">{data.title}</div>

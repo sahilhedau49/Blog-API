@@ -75,18 +75,20 @@ const Blog = () => {
     blog && (
       <div className="w-[50%] mx-auto my-20">
         <div>
-          <div className="flex justify-between place-items-center">
-            <h1 className="text-4xl w-[75%] mb-4">{blog.title}</h1>
+          <div className="flex justify-between place-items-center mb-6">
+            <h1 className="text-4xl w-[75%]">{blog.title}</h1>
             <p className="text-lg font-medium text-gray-700">
               - by {blog.author}
             </p>
           </div>
+          <hr />
           <div className="my-6 overflow-hidden">
             <p className="whitespace-pre-wrap text-justify text-xl">
               {blog.content}
             </p>
           </div>
-          <p className="text-right text-sm mt-10 font-medium text-gray-700">
+          <hr />
+          <p className="text-right text-sm mt-6 font-medium text-gray-700">
             {blog.created_at.split("T")[0]}
           </p>
         </div>
@@ -122,11 +124,7 @@ const Blog = () => {
                     <div className="flex justify-between">
                       <p className="text-sm font-semibold">{comment.author}</p>
                       <p className="text-xs font-medium">
-                        {
-                          Date(comment.created_at)
-                            .toLocaleString()
-                            .split(" GMT")[0]
-                        }
+                        {comment.created_at.split("T")[0]}
                       </p>
                     </div>
                     <div className="flex justify-between mt-1">
@@ -147,16 +145,18 @@ const Blog = () => {
             )}
           </div>
         </div>
-        <div>
-          <BlogOwnerControls id={id} />
-        </div>
+        {user?.name === blog.author && (
+          <div>
+            <BlogOwnerControls id={id} />
+          </div>
+        )}
         <div
           className="text-4xl absolute top-28 left-8 bg-zinc-300 rounded-full p-2 cursor-pointer"
           onClick={() => {
             navigate(-1);
           }}
         >
-          <IoArrowBack className="hover:-translate-x-1 duration-500" />
+          <IoArrowBack className="active:-translate-x-1 duration-500" />
         </div>
       </div>
     )
