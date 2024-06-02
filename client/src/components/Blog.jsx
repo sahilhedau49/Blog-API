@@ -99,7 +99,7 @@ const Blog = () => {
             </div>
             <div className="flex justify-between mb-10">
               <input
-                className="w-[60%] px-4 py-1 border-b-2 focus:outline-none disabled:cursor-not-allowed"
+                className="w-[70%] bg-[#DBE2EF] px-6 py-2 rounded-xl border-b-2 focus:outline-none disabled:cursor-not-allowed"
                 disabled={!isAuthenticated}
                 type="text"
                 placeholder={`${
@@ -110,7 +110,7 @@ const Blog = () => {
               <button
                 onClick={submitComment}
                 disabled={newComment.trim() === ""}
-                className={`px-4 py-1 h-fit border-2 rounded-xl border-zinc-500 text-zinc-800 disabled:cursor-not-allowed disabled:text-zinc-400 disabled:border-zinc-300`}
+                className={`duration-300 hover:text-zinc-50 hover:bg-[#3F72AF] hover:border-[#3F72AF] px-4 py-1 h-fit border-2 rounded-xl border-zinc-500 text-zinc-800 disabled:cursor-not-allowed disabled:text-zinc-400 disabled:border-zinc-300`}
               >
                 Add comment
               </button>
@@ -151,7 +151,7 @@ const Blog = () => {
           </div>
         )}
         <div
-          className="text-4xl absolute top-28 left-8 bg-zinc-300 rounded-full p-2 cursor-pointer"
+          className="text-4xl absolute top-28 left-8 text-zinc-50 bg-[#112D4E] rounded-full p-2 cursor-pointer"
           onClick={() => {
             navigate(-1);
           }}

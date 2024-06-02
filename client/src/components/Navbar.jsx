@@ -8,7 +8,7 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <div className="flex border-b-2 border-slate-950 justify-between overflow-x-hidden py-6 px-24 md:px-2">
+    <div className="flex text-[#112D4E] border-b-2 border-slate-950 justify-between overflow-x-hidden py-6 px-24 md:px-2">
       <div>
         <Link to={"/"}>
           <p className="text-2xl font-semibold">Blog App</p>
@@ -21,7 +21,7 @@ const Navbar = () => {
       >
         {isAuthenticated && (
           <Link
-            className="text-lg md:text-xl font-semibold md:font-medium duration-300 text-zinc-500 md:text-black hover:text-black"
+            className="text-lg md:text-xl font-semibold md:font-medium duration-300 "
             to={"/createPost"}
           >
             Write a Blog
@@ -29,20 +29,20 @@ const Navbar = () => {
         )}
         {!isAuthenticated && (
           <Link
-            className="text-lg md:text-xl font-semibold md:font-medium duration-300 text-zinc-500 md:text-black hover:text-black"
+            className="text-lg md:text-xl font-semibold md:font-medium duration-300"
             onClick={() => loginWithRedirect()}
           >
-            Log In
+            LogIn
           </Link>
         )}
         {isAuthenticated && (
           <button
-            className="text-lg md:text-xl font-semibold md:font-medium duration-300 text-zinc-500 md:text-black hover:text-black"
+            className="text-lg md:text-xl font-semibold md:font-medium duration-300"
             onClick={() =>
               logout({ logoutParams: { returnTo: window.location.origin } })
             }
           >
-            Log Out
+            LogOut
           </button>
         )}
         {isAuthenticated && (
@@ -52,7 +52,7 @@ const Navbar = () => {
               className="w-8 md:w-10 rounded-full"
               alt="user"
             />
-            <div className="text-lg md:text-xl md:font-medium font-semibold duration-300 text-zinc-500 md:text-black hover:text-black">
+            <div className="text-lg md:text-xl md:font-medium font-semibold duration-300">
               {user.name}
             </div>
           </div>

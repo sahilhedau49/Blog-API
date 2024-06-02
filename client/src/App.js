@@ -6,6 +6,7 @@ import Blog from "./components/Blog";
 import { Toaster } from "react-hot-toast";
 import UpdateBlog from "./components/UpdateBlog";
 import ProtectedCreateBlog from "./components/ProtectedCreateBlog";
+import ProtectedUpdateBlog from "./components/ProtectedUpdateBlog";
 
 function App() {
   return (
@@ -24,7 +25,14 @@ function App() {
             </ProtectedCreateBlog>
           }
         />
-        <Route path="/post/:id/update" element={<UpdateBlog />} />
+        <Route
+          path="/post/:id/update"
+          element={
+            <ProtectedUpdateBlog>
+              <UpdateBlog />
+            </ProtectedUpdateBlog>
+          }
+        />
         <Route path="/post/:id" element={<Blog />} />
       </Routes>
     </BrowserRouter>

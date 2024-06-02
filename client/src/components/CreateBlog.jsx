@@ -66,21 +66,19 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="w-[50%] mx-auto">
+    <div className="w-[50%] text-[#112D4E] mx-auto">
       <form onSubmit={handleSubmit} className="w-full">
-        <div className="text-2xl font-semibold text-stone-700 text-center my-8">
+        <div className="text-2xl font-semibold  text-center my-8">
           <h1>Write a Blog</h1>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-lg font-bold mb-2">
-            Title:
-          </label>
+          <label className="block text-lg font-bold mb-2">Title:</label>
           <input
             id="title"
             type="text"
             value={title}
             onChange={handleTitleChange}
-            className={`border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            className={`border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline ${
               titleError && "border-red-500"
             }`}
           />
@@ -89,15 +87,13 @@ const CreateBlog = () => {
           )}
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 text-lg font-bold mb-2">
-            Content:
-          </label>
+          <label className="block text-lg font-bold mb-2">Content:</label>
           <textarea
             id="content"
             value={content}
             onChange={handleContentChange}
             onKeyDown={handleTabKeyPress}
-            className={`h-80 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+            className={`h-80 border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline ${
               contentError && "border-red-500"
             }`}
           />
