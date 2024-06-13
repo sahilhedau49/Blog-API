@@ -9,6 +9,17 @@ const getAllPosts = (req, res) => {
   });
 };
 
+const getAllPostsByTitle = (req, res) => {
+  const { title } = req.params;
+  const q =
+    "SELECT * FROM posts WHERE title LIKE CONCAT('%', ?, '%') ORDER BY created_at DESC";
+
+  db.query(q, [title], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+};
+
 const createOnePost = (req, res) => {
   const q = "INSERT INTO posts (`title`, `content`, `author`) VALUES (?)";
   const values = [req.body.title, req.body.content, req.body.author];
@@ -65,6 +76,7 @@ const deleteOnePost = (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getAllPostsByTitle,
   getPostById,
   createOnePost,
   updatePostById,

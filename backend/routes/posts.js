@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   getAllPosts,
+  getAllPostsByTitle,
   getPostById,
   createOnePost,
   updatePostById,
@@ -16,6 +17,7 @@ const {
 } = require("../controllers/comments");
 
 router.route("/").get(getAllPosts);
+router.route("/byTitle/:title").get(getAllPostsByTitle);
 router.route("/:id").get(getPostById);
 router.route("/:id").put(updatePostById);
 router.route("/").post(createOnePost);
