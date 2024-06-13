@@ -5,12 +5,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { MdDelete } from "react-icons/md";
 import BlogOwnerControls from "./BlogOwnerControls";
 import { IoArrowBack } from "react-icons/io5";
+import { IoMdHeart } from "react-icons/io";
+import { IoMdHeartEmpty } from "react-icons/io";
 
 const Blog = () => {
   const { user, isAuthenticated } = useAuth0();
   const { id } = useParams();
   const [blog, setBlog] = useState();
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,8 +23,9 @@ const Blog = () => {
         const res = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
         );
-        setBlog(res.data[0]);
-        console.log(res.data[0]);
+        setBlog(res.data.post);
+        setLikes(res.data.likesCount);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -32,15 +37,29 @@ const Blog = () => {
           `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/comments`
         );
         setComments(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
     };
 
+    const fetchIsUserLiked = async () => {
+      if (!isAuthenticated) return;
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/checkUserLiked/${id}/${user?.nickname}`
+        );
+        setIsLiked(res.data.userLiked);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchBlogs();
     fetchComments();
-  }, [id]);
+    fetchIsUserLiked();
+  }, [id, user]);
 
   const [newComment, setNewComment] = useState("");
 
@@ -73,6 +92,32 @@ const Blog = () => {
     }
   };
 
+  const handleDislike = async () => {
+    console.log("Call dislike");
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/like/${user.nickname}`
+      );
+      console.log(res);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLike = async () => {
+    console.log("Like");
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/like/${user.nickname}`
+      );
+      console.log(res);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     blog && (
       <div className="w-[50%] mx-auto my-20">
@@ -90,11 +135,26 @@ const Blog = () => {
             </p>
           </div>
           <hr />
-          <p className="text-right text-sm mt-6 font-medium text-gray-700">
-            {blog.created_at.split("T")[0]}
-          </p>
+          <div className="flex justify-between justify-items-center my-6">
+            <div className="flex gap-3">
+              <button
+                disabled={!isAuthenticated}
+                className={`text-red-600 hover:scale-110 duration-200 text-2xl disabled:text-red-200 disabled:cursor-not-allowed`}
+              >
+                {isLiked === true ? (
+                  <IoMdHeart onClick={handleDislike} />
+                ) : (
+                  <IoMdHeartEmpty onClick={handleLike} />
+                )}
+              </button>
+              <h1>{likes} Likes</h1>
+            </div>
+            <p className="text-sm font-medium text-gray-700">
+              {blog.created_at.split("T")[0]}
+            </p>
+          </div>
         </div>
-        <div className="mt-20">
+        <div className="mt-10">
           <div>
             <div className="mb-6">
               <p className="text-xl">Comments</p>

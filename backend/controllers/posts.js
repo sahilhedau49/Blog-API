@@ -35,12 +35,45 @@ const createOnePost = (req, res) => {
 
 const getPostById = (req, res) => {
   const { id } = req.params;
-  const q = "SELECT * FROM posts WHERE id = (?)";
 
-  db.query(q, [id], (err, data) => {
+  const postQuery = "SELECT * FROM posts WHERE id = ?";
+  const likesCountQuery =
+    "SELECT COUNT(*) AS likesCount FROM likes WHERE post_id = ?";
+
+  db.query(postQuery, [id], (err, postData) => {
     if (err) return res.json(err);
-    if (data.length == 0) return res.json("Invalid Post ID");
-    return res.json(data);
+
+    if (postData.length === 0) {
+      return res.json({ message: "Post not found" });
+    }
+
+    db.query(likesCountQuery, [id], (err, likesCountData) => {
+      if (err) return res.json(err);
+
+      const likesCount = likesCountData[0].likesCount;
+
+      return res.json({
+        post: postData[0],
+        likesCount: likesCount,
+      });
+    });
+  });
+};
+
+const checkUserLikedPostById = (req, res) => {
+  const { id, username } = req.params;
+
+  const userLikedQuery =
+    "SELECT COUNT(*) AS userLiked FROM likes WHERE post_id = ? AND username = ?";
+
+  db.query(userLikedQuery, [id, username], (err, userLikedData) => {
+    if (err) return res.json(err);
+
+    const userLiked = userLikedData[0].userLiked > 0;
+
+    return res.json({
+      userLiked: userLiked,
+    });
   });
 };
 
@@ -81,4 +114,5 @@ module.exports = {
   createOnePost,
   updatePostById,
   deleteOnePost,
+  checkUserLikedPostById,
 };
