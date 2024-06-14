@@ -93,7 +93,7 @@ const Blog = () => {
   };
 
   const handleDislike = async () => {
-    console.log("Call dislike");
+    console.log("Dislike by ", user.nickname, " on id ", id);
     try {
       const res = await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/like/${user.nickname}`
@@ -106,7 +106,7 @@ const Blog = () => {
   };
 
   const handleLike = async () => {
-    console.log("Like");
+    console.log("Like by ", user.nickname, " on id ", id);
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/posts/${id}/like/${user.nickname}`

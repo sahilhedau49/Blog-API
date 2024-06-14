@@ -6,11 +6,10 @@ const likePostByID = (req, res) => {
   const q = "INSERT INTO likes (`post_id`, `username`) VALUES (?)";
   const values = [post_id, username];
 
-  const q_to_find = "SELECT * FROM likes WHERE username = ?";
+  const q_to_find = "SELECT * FROM likes WHERE username = ? AND post_id == ?";
 
-  db.query(q_to_find, [username], (err, data) => {
+  db.query(q_to_find, [username, post_id], (err, data) => {
     if (err) return res.json(err);
-    console.log(data.length);
     if (data.length === 0) {
       db.query(q, [values], (err, data) => {
         if (err) return res.json(err);
