@@ -5,8 +5,8 @@ import CreateBlog from "./components/CreateBlog";
 import Blog from "./components/Blog";
 import { Toaster } from "react-hot-toast";
 import UpdateBlog from "./components/UpdateBlog";
-import ProtectedCreateBlog from "./components/ProtectedCreateBlog";
-import ProtectedUpdateBlog from "./components/ProtectedUpdateBlog";
+import LikedBlogs from "./components/LikedBlogs";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -20,17 +20,25 @@ function App() {
         <Route
           path="/createPost"
           element={
-            <ProtectedCreateBlog>
+            <ProtectedRoute>
               <CreateBlog />
-            </ProtectedCreateBlog>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/post/:id/update"
           element={
-            <ProtectedUpdateBlog>
+            <ProtectedRoute>
               <UpdateBlog />
-            </ProtectedUpdateBlog>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/likedBlogs"
+          element={
+            <ProtectedRoute>
+              <LikedBlogs />
+            </ProtectedRoute>
           }
         />
         <Route path="/post/:id" element={<Blog />} />

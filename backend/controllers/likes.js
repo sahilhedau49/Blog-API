@@ -42,7 +42,7 @@ const dislikePostByID = (req, res) => {
 const getAllLikedPostByUsername = (req, res) => {
   const { username } = req.params;
   const q =
-    "SELECT * FROM posts as p, likes as l WHERE p.id = l.post_id and l.username = ?";
+    "SELECT p.id, title, content, author, created_at  FROM posts as p, likes as l WHERE p.id = l.post_id and l.username = ?";
 
   db.query(q, [username], (err, data) => {
     if (err) return res.json(err);

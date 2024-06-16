@@ -19,7 +19,8 @@ const UpdateBlog = () => {
         const res = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
         );
-        const { title, content } = res.data[0];
+        console.log(res);
+        const { title, content } = res.data.post;
         setTitle(title);
         setContent(content);
       } catch (err) {

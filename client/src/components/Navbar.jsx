@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CgMenu, CgClose } from "react-icons/cg";
 
 const Navbar = () => {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
   const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex text-[#112D4E] border-b-2 border-slate-950 justify-between overflow-x-hidden py-6 px-24 md:px-2">
@@ -43,6 +44,14 @@ const Navbar = () => {
             }
           >
             LogOut
+          </button>
+        )}
+        {isAuthenticated && (
+          <button
+            className="text-lg md:text-xl font-semibold md:font-medium duration-300"
+            onClick={() => navigate("/likedBlogs")}
+          >
+            Liked Blogs
           </button>
         )}
         {isAuthenticated && (
