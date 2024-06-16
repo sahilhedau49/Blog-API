@@ -17,7 +17,11 @@ const {
   deleteCommentById,
 } = require("../controllers/comments");
 
-const { likePostByID, dislikePostByID } = require("../controllers/likes");
+const {
+  likePostByID,
+  dislikePostByID,
+  getAllLikedPostByUsername,
+} = require("../controllers/likes");
 
 router.route("/").get(getAllPosts);
 router.route("/byTitle/:title").get(getAllPostsByTitle);
@@ -33,5 +37,6 @@ router.route("/:post_id/comments/:id").delete(deleteCommentById);
 
 router.route("/:post_id/like/:username").post(likePostByID);
 router.route("/:post_id/like/:username").delete(dislikePostByID);
+router.route("/likedPost/:username").get(getAllLikedPostByUsername);
 
 module.exports = router;

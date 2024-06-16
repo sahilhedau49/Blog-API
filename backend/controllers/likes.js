@@ -39,4 +39,15 @@ const dislikePostByID = (req, res) => {
   });
 };
 
-module.exports = { likePostByID, dislikePostByID };
+const getAllLikedPostByUsername = (req, res) => {
+  const { username } = req.params;
+  const q =
+    "SELECT * FROM posts as p, likes as l WHERE p.id = l.post_id and l.username = ?";
+
+  db.query(q, [username], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+};
+
+module.exports = { likePostByID, dislikePostByID, getAllLikedPostByUsername };
